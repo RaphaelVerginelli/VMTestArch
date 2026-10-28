@@ -1,0 +1,31 @@
+{
+  "id": 26061080,
+  "name": "protect-releases-tag",
+  "target": "tag",
+  "source_type": "Repository",
+  "source": "RaphaelVerginelli/VMTestArch",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/tags/v*"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "creation"
+    },
+    {
+      "type": "update"
+    }
+  ],
+  "bypass_actors": []
+}
