@@ -1,0 +1,98 @@
+# ==============================================================================
+# IPLS - .gitignore
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Archiso & Package Build Artifacts (makepkg / mkarchiso)
+# ------------------------------------------------------------------------------
+# Output directory containing built ISOs
+out/
+out_dir/
+*.iso
+*.iso.sha256
+*.iso.sig
+
+# Archiso scratch / working directories
+work/
+work_dir/
+
+# [CHANGED] makepkg build trees, scoped to packaging directories only.
+# The previous unanchored "src/" and "pkg/" rules matched ANY directory with
+# those names, including src/rust/ and the src/ folder of every Cargo crate.
+/packages/**/src/
+/packages/**/pkg/
+*.pkg.tar.*
+*.pkg.tar.zst
+*.pkg.tar.xz
+
+# [NEW] Binaries copied into the live image at build time (see release-iso.yml).
+# They are build outputs, not sources.
+/archiso/airootfs/usr/local/bin/pls
+
+# [NEW] Release assets downloaded locally for verification
+/dist/
+*.pkglist.txt
+
+# ------------------------------------------------------------------------------
+# 2. Rust & Kernel Build Artifacts
+# ------------------------------------------------------------------------------
+# Rust targets (Cargo.lock is intentionally NOT ignored: builds use --locked)
+target/
+**/*.rs.bk
+Cargo.lock.backup
+
+# Kernel modules and C compilation artifacts (LKM / Rust for Linux PoC)
+*.o
+*.ko
+*.mod
+*.mod.c
+*.mod.o
+*.symvers
+*.order
+.tmp_versions/
+
+# ------------------------------------------------------------------------------
+# 3. Security & Secrets Protection
+# ------------------------------------------------------------------------------
+# Private keys and keyrings (do NOT block public .crt/.pub)
+*.key
+*.priv
+*.pfx
+*.p12
+*.pem.key
+id_rsa*
+id_ed25519*
+!id_*.pub
+
+# Local environment variables and sensitive profiles
+.env
+.env.*
+*.secret
+
+# ------------------------------------------------------------------------------
+# 4. Editors, IDEs & System Files
+# ------------------------------------------------------------------------------
+# VS Code (ignore local cache/workspace state, track shared settings)
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Editor temporary/swap files
+*~
+*.swp
+*.swo
+*.swn
+
+# Patch artifacts
+*.orig
+*.rej
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# ------------------------------------------------------------------------------
+# 5. Raw Logs & Execution Traces
+# ------------------------------------------------------------------------------
+*.log
+*.log.*
